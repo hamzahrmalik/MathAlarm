@@ -13,7 +13,8 @@ import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
 public class Main implements IXposedHookLoadPackage {
-	
+
+	private static final boolean DEBUG = false;
 	boolean done = false;
 
 	@Override
@@ -21,7 +22,7 @@ public class Main implements IXposedHookLoadPackage {
 		// check package
 		if (!lpparam.packageName.equals("com.android.deskclock"))
 			return;
-		XposedBridge.log("YEAAH> GET IN");
+		if (DEBUG) XposedBridge.log("in DeskClock");
 		// hook the dismiss
 		XposedHelpers.findAndHookMethod("com.android.deskclock.alarms.AlarmActivity", lpparam.classLoader,
 				"dismiss", new XC_MethodHook() {
@@ -35,7 +36,7 @@ public class Main implements IXposedHookLoadPackage {
 						}
 						//Get an instance of this object, which is an Activity, for the purpose of using its Context
 						final Activity activity = (Activity) param.thisObject;
-						XposedBridge.log("IM HERE");
+						if (DEBUG) XposedBridge.log("in dismiss()");
 						// Generate a question
 						int num1 = getRandomNumber();
 						int num2 = getRandomNumber();

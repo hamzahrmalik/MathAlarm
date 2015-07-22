@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Settings" >
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/difficultyArray"
+            android:entryValues="@array/difficultyArrayValues"
+            android:key="difficulty"
+            android:summary="How difficult would you like the questions to be?"
+            android:title="Difficulty" />
+
+        <MultiSelectListPreference
+            android:defaultValue="@array/typesArrayValues"
+            android:entries="@array/typesArray"
+            android:entryValues="@array/typesArrayValues"
+            android:key="type"
+            android:summary="What types of equations would you like?"
+            android:title="Type" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="More" >
+        <Preference
+            android:key="test"
+            android:summary="Display example question based on your settings"
+            android:title="Example Question" />
+        <Preference
+            android:key="xda"
+            android:summary="View the XDA thread for this mod"
+            android:title="XDA Thread" />
+        <Preference
+            android:summary="1.1"
+            android:title="Version" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

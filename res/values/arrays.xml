@@ -1,0 +1,31 @@
+<resources>
+
+    <string-array name="difficultyArray">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    
+    <string-array name="difficultyArrayValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+    
+    
+     <string-array name="typesArray">
+        <item>Addition</item>
+        <item>Subtraction</item>
+        <item>Multiplication</item>
+        <item>Division</item>
+    </string-array>
+    
+    <string-array name="typesArrayValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+</resources>

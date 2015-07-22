@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Math Alarm</string>
+    <string name="title_activity_main">Math Alarm</string>
+
 </resources>

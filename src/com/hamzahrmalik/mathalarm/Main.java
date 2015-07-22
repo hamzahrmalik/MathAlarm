@@ -29,6 +29,7 @@ public class Main implements IXposedHookLoadPackage {
 					@Override
 					protected void beforeHookedMethod(final MethodHookParam param)
 							throws Throwable {
+						if (DEBUG) XposedBridge.log("in dismiss()");
 						//At the end of the method, we simply call it again. Check thats not the case
 						if(done){
 							done = false;
@@ -36,15 +37,14 @@ public class Main implements IXposedHookLoadPackage {
 						}
 						//Get an instance of this object, which is an Activity, for the purpose of using its Context
 						final Activity activity = (Activity) param.thisObject;
-						if (DEBUG) XposedBridge.log("in dismiss()");
+						
 						// Generate a question
-						int num1 = getRandomNumber();
-						int num2 = getRandomNumber();
-						final int answer = num1 * num2;
+						Question q = new Question(activity);
+						final int answer = q.answer;						
 						
 						//prepare alert
 						AlertDialog.Builder b = new AlertDialog.Builder(activity);
-						b.setTitle("What is " + num1 + " x " + num2 + "?");
+						b.setTitle(q.question);
 						
 						//prepare input box
 						final EditText et = new EditText(activity);
@@ -70,7 +70,6 @@ public class Main implements IXposedHookLoadPackage {
 				                    }
 				                }
 				                catch (Exception e) {
-			                        Toast.makeText(activity, "Nope! Try again", Toast.LENGTH_SHORT).show();
 			                        return;
 				                }
 				                //Guys a genius

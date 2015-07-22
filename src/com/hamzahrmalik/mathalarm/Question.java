@@ -3,22 +3,16 @@ package com.hamzahrmalik.mathalarm;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 public class Question {
 
 	String question;
 	int answer;
 
-	public Question(Context c) {
-		SharedPreferences pref = c.getSharedPreferences(
-				"com.hamzahrmalik.mathalarm_preferences", 0);
-		Set<String> typesSet = pref.getStringSet("type", null);
+	public Question(Set<String> typesSet, int difficulty) {
 		// Highest number user will get in calculation
-		int difficulty = Integer.parseInt(pref.getString("difficulty", "1")) * 5;
+		difficulty *= 5;
 		if (typesSet == null || typesSet.isEmpty()) {
-			//Make a set, because it's not there...
+			// Make a set, because it's not there...
 			typesSet = new HashSet<String>();
 			typesSet.add("1");
 			typesSet.add("2");
@@ -30,7 +24,7 @@ public class Question {
 															// from 0, -1
 		// int operator should hold 1,2,3 or 4, representing + - * /
 		int operator = Integer.parseInt(types[random]);
-		String operatorStr = "";
+		String operatorStr = ""; // Holds the actual symbol for the operator
 		if (operator == 1)
 			operatorStr = "+";
 		else if (operator == 2)
@@ -40,11 +34,12 @@ public class Question {
 		else if (operator == 4)
 			operatorStr = "/";
 
+		// The two numbers in the sum, and the answer
 		int num1 = getRandomNumber(difficulty - 4, difficulty);
 		int num2 = getRandomNumber(difficulty - 4, difficulty);
-		int answer = 0;
+		int answer = 0;// will be calculated later
 
-		//Use the operator generated earlier to work out answer
+		// Use the operator generated earlier to work out answer
 		if (operator == 1)
 			answer = num1 + num2;
 		else if (operator == 2) {

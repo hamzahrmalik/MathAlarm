@@ -28,7 +28,7 @@
             android:summary="View the XDA thread for this mod"
             android:title="XDA Thread" />
         <Preference
-            android:summary="1.1"
+            android:summary="1.2"
             android:title="Version" />
     </PreferenceCategory>
 

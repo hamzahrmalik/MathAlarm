@@ -17,18 +17,26 @@
             android:key="type"
             android:summary="What types of equations would you like?"
             android:title="Type" />
+
+        <CheckBoxPreference
+            android:key="showIcon"
+            android:defaultValue="true"
+            android:summary="Show Math Alarm icon on launcher. You can still access the app via the Xposed Installer"
+            android:title="Show Launcher Icon" />
+        
     </PreferenceCategory>
     <PreferenceCategory android:title="More" >
         <Preference
             android:key="test"
             android:summary="Display example question based on your settings"
             android:title="Example Question" />
+
         <Preference
             android:key="xda"
             android:summary="View the XDA thread for this mod"
             android:title="XDA Thread" />
         <Preference
-            android:summary="1.2"
+            android:summary="1.3"
             android:title="Version" />
     </PreferenceCategory>
 

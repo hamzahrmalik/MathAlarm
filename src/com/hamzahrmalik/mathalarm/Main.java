@@ -3,6 +3,7 @@ package com.hamzahrmalik.mathalarm;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.text.InputType;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -85,8 +86,19 @@ public class Main implements IXposedHookLoadPackage {
 								// This variable prevents infinite
 								// looping of the method
 								done = true;
-								XposedHelpers.callMethod(param.thisObject,
-										"dismiss");
+
+								// Method args depends on android version
+								if (Build.VERSION.SDK_INT >= 19)
+									XposedHelpers.callMethod(param.thisObject,
+											"dismiss");
+								else if (Build.VERSION.SDK_INT == 18
+										|| Build.VERSION.SDK_INT == 17)
+									XposedHelpers.callMethod(param.thisObject,
+											"dismiss", false, false);
+								else if (Build.VERSION.SDK_INT == 16
+										|| Build.VERSION.SDK_INT == 15)
+									XposedHelpers.callMethod(param.thisObject,
+											"dismiss", false);
 							}
 
 						});
@@ -98,14 +110,20 @@ public class Main implements IXposedHookLoadPackage {
 			}
 		};
 
-		// Hook the aosp clock
-		XposedHelpers.findAndHookMethod(
-				"com.android.deskclock.alarms.AlarmActivity",
-				lpparam.classLoader, "dismiss", hook);
-		XposedHelpers.findAndHookMethod(
-				"com.google.android.deskclock.alarms.AlarmActivity",
-				lpparam.classLoader, "dismiss", hook);
-
+		// Hook the clock
+		if (Build.VERSION.SDK_INT >= 19)
+			XposedHelpers.findAndHookMethod(
+					"com.android.deskclock.alarms.AlarmActivity",
+					lpparam.classLoader, "dismiss", hook);
+		else if (Build.VERSION.SDK_INT == 18 || Build.VERSION.SDK_INT == 17)
+			XposedHelpers.findAndHookMethod(
+					"com.android.deskclock.AlarmAlertFullScreen",
+					lpparam.classLoader, "dismiss", boolean.class,
+					boolean.class, hook);
+		else if (Build.VERSION.SDK_INT == 16 || Build.VERSION.SDK_INT == 15)
+			XposedHelpers.findAndHookMethod(
+					"com.android.deskclock.AlarmAlertFullScreen",
+					lpparam.classLoader, "dismiss", boolean.class, hook);
 	}
 
 }

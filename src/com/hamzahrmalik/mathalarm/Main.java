@@ -11,6 +11,7 @@ import android.widget.Toast;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
@@ -104,7 +105,9 @@ public class Main implements IXposedHookLoadPackage {
 						});
 				// show it
 				AlertDialog d = b.create();
-				d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+				d.getWindow()
+						.setSoftInputMode(
+								WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 				d.show();
 
 				// Don't call original method just yet!
@@ -117,15 +120,10 @@ public class Main implements IXposedHookLoadPackage {
 			XposedHelpers.findAndHookMethod(
 					"com.android.deskclock.alarms.AlarmActivity",
 					lpparam.classLoader, "dismiss", hook);
-		else if (Build.VERSION.SDK_INT == 18 || Build.VERSION.SDK_INT == 17)
-			XposedHelpers.findAndHookMethod(
+		else
+			XposedBridge.hookAllMethods(XposedHelpers.findClass(
 					"com.android.deskclock.AlarmAlertFullScreen",
-					lpparam.classLoader, "dismiss", boolean.class,
-					boolean.class, hook);
-		else if (Build.VERSION.SDK_INT == 16 || Build.VERSION.SDK_INT == 15)
-			XposedHelpers.findAndHookMethod(
-					"com.android.deskclock.AlarmAlertFullScreen",
-					lpparam.classLoader, "dismiss", boolean.class, hook);
+					lpparam.classLoader), "dismiss", hook);
 	}
 
 }

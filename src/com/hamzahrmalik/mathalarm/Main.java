@@ -5,7 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.text.InputType;
-import android.view.WindowsManager;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.robv.android.xposed.IXposedHookLoadPackage;

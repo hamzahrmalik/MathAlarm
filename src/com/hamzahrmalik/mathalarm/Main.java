@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.text.InputType;
+import android.view.WindowsManager;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -55,7 +56,6 @@ public class Main implements IXposedHookLoadPackage {
 				final EditText et = new EditText(activity);
 				et.setInputType(InputType.TYPE_CLASS_NUMBER);
 				et.setHint("Type answer here");
-				et.setText("0");
 
 				// add input box to alert
 				b.setView(et);
@@ -103,7 +103,9 @@ public class Main implements IXposedHookLoadPackage {
 
 						});
 				// show it
-				b.show();
+				AlertDialog d = b.create();
+				d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+				d.show();
 
 				// Don't call original method just yet!
 				param.setResult(null);

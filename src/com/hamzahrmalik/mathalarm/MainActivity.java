@@ -24,6 +24,7 @@ public class MainActivity extends PreferenceActivity {
 	}
 
 	public static class Preferences extends PreferenceFragment {
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onCreate(final Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
